@@ -6,9 +6,9 @@
       <button @click="sayHello">Say Hello</button>
       <button @click="loadCsv">GET Csv</button>
       <button @click="loadNeo4j">load Neo4j</button>
-      <div>
+      <div style="width:900px;height:500px;">
         <span>{{ serverResponse }} </span>
-        <chart ref="chart1" :options="myoption" :auto-resize="true"></chart>
+        <v-chart ref="chart1" :option="myoption" :auto-resize="true"></v-chart>
       </div>
     </div>
   </div>
@@ -57,12 +57,13 @@ export default {
     },
     loadNeo4j() {
       const path = 'http://127.0.0.1:5000/graph'
-      axios.get(path).then(function (response) {
+      axios.get(path).then(response => {
         var graph = response.data.elements
         console.log(graph)
         graph.nodes.forEach(function (node) {
           node.symbolSize = 5
         })
+        console.log(this.myoption)
         this.myoption = {
           title: {
             text: 'Les Miserables',
@@ -87,7 +88,20 @@ export default {
               categories: graph.categories,
               roam: true,
               label: {
-                position: 'right'
+                show: true,
+                position: 'right',
+                formatter: '{b}'
+              },
+              labelLayout: {
+                hideOverlap: true
+              },
+              lineStyle: {
+                color: 'Source',
+                curveness: 0.3
+              },
+              scaleLimit: {
+                min: 0.4,
+                max: 2
               },
               force: {
                 repulsion: 100

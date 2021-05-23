@@ -5,9 +5,10 @@ import App from './App'
 import router from './router'
 import ECharts from 'vue-echarts'
 import 'echarts/lib/chart/graph'
+import 'echarts'
 
 Vue.config.productionTip = false
-Vue.component('chart', ECharts)
+Vue.component('v-chart', ECharts)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
